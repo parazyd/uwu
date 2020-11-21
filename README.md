@@ -9,6 +9,8 @@ wallet.
 You can donate BTC to support uwu development:
 [1Ai71EmjbVBu1QjwKeVEWSG2S1np6VtGEb](bitcoin:1Ai71EmjbVBu1QjwKeVEWSG2S1np6VtGEb)
 
+[![Build Status](https://travis-ci.org/parazyd/uwu.svg?branch=master)](https://travis-ci.org/parazyd/uwu)
+
 Table of Contents
 =================
 
