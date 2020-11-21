@@ -4,7 +4,7 @@ uwu
 uwu is a build system and the software for the uwu Bitcoin hardware
 wallet.
 
-![uwu](uwu.png)
+![uwu](res/uwu.png)
 
 You can donate BTC to support uwu development:
 [1Ai71EmjbVBu1QjwKeVEWSG2S1np6VtGEb](bitcoin:1Ai71EmjbVBu1QjwKeVEWSG2S1np6VtGEb)
