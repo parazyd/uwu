@@ -23,6 +23,9 @@ $(KERNEL_SRC): $(KERNEL_TAR) $(KERNEL_SIG)
 	gpg --no-default-keyring --keyring=./verification_keyring.gpg \
 		--verify $(KERNEL_SIG)
 	tar xf $(KERNEL_SRC).tar
+ifneq ($(KERNEL_PATCH),)
+	( cd $(KERNEL_SRC) && patch -p1 < $(KERNEL_PATCH) )
+endif
 
 $(KERNEL_CFG): $(KERNEL_SRC)
 	cp -f uwu_pizero_defconfig $(KERNEL_SRC)/arch/arm/configs/

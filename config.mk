@@ -18,6 +18,10 @@ ROOTCREDENTIALS = root:uwu
 # Linux kernel version
 KERNEL_SRC = linux-5.8.18
 
+# Path to a kernel patch to apply in the mainline source tree.
+# Safe to leave unset.
+KERNEL_PATCH =
+
 # Alpine Linux version
 ALPINE_MAJ = 3.12
 ALPINE_VER = 3.12.1
