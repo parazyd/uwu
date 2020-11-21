@@ -1,7 +1,4 @@
-/*
- * pass arguments to qemu binary
- * fetched from Gentoo wiki
- */
+/* Pass arguments to qemu binary. Fetched from the Gentoo Wiki */
 
 #include <string.h>
 #include <unistd.h>
