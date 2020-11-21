@@ -4,6 +4,9 @@
 # See LICENSE file for copyright and license details.
 set -e
 
+# Clean up some static files from the chroot tarball
+rm -f /etc/shadow /etc/alpine-release /etc/issue /etc/os-release
+
 cat <<EOF > /etc/apk/repositories
 https://nl.alpinelinux.org/alpine/edge/main
 https://nl.alpinelinux.org/alpine/edge/community
@@ -25,10 +28,18 @@ adduser -D -s /bin/ash uwu
 echo "@USERCREDENTIALS@" | chpasswd
 echo "@ROOTCREDENTIALS@" | chpasswd
 
-sed -e 's/#rc_parallel="NO"/rc_parallel="YES"/' -i /etc/rc.conf
+sed -e 's/^#rc_parallel=.*/rc_parallel="YES"/' \
+	-e 's/^#unicode=.*/unicode="NO"/' \
+	-e 's/^rc_tty_number=.*/rc_tty_number=1/' \
+	-i /etc/rc.conf
 
-cat <<EOF >> /etc/inittab
+cat <<EOF > /etc/inittab
+# /etc/inittab
+::sysinit:/sbin/openrc sysinit
+::sysinit:/sbin/openrc boot
+::wait:/sbin/openrc default
 ttyGS0::respawn:/sbin/getty -L ttyGS0 115200 vt100
+::shutdown:/sbin/openrc shutdown
 EOF
 
 echo "ttyGS0" >> /etc/securetty
@@ -38,7 +49,5 @@ for i in $boot_initscripts; do
 	rc-update add $i boot
 done
 
-#default_initscripts="electrum-daemon"
-#for i in $default_initscripts; do
-#	rc-update add $i default
-#done
+# Final cleanup
+rm -f /etc/shadow- /etc/group- /etc/passwd-

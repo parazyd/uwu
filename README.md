@@ -130,12 +130,13 @@ you to input a sudo password. Try inputting it and pressing `Enter` to
 continue.  Otherwise, you may want to set up a `NOPASSWD` entry in
 sudoers, or something similar to prolong the timeout.
 
-This will probably take a little bit. When this is issued, the build
-system will start downloading the necessary source code and binaries. It
-will be compiling the Linux kernel, and setting up and configuring an
-Alpine Linux chroot. Once done, the chroot will be packed and compressed
-into a cpio archive which can then be extracted on a microSD card we can
-use with our Raspberry Pi Zero.
+This process can take 20 minutes of crunching, depending on your
+hardware. When this is issued, the build system will start downloading
+the necessary source code and binaries. It will be compiling the Linux
+kernel, and setting up and configuring an Alpine Linux chroot. Once
+done, the chroot will be packed and compressed into a cpio archive which
+can then be extracted on a microSD card we can use with our Raspberry Pi
+Zero.
 
 
 Hardware
