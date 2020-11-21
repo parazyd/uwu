@@ -10,15 +10,16 @@ https://nl.alpinelinux.org/alpine/edge/community
 https://nl.alpinelinux.org/alpine/edge/testing
 EOF
 
-cat <<EOF > /etc/resolv.conf
-nameserver 8.8.8.8
-EOF
+echo "nameserver 8.8.8.8" > /etc/resolv.conf
 
 apk update
 apk upgrade
 apk add rng-tools electrum openrc alpine-base
 
+rm -f /etc/resolv.conf
+
 echo "uwu" > /etc/hostname
+echo "127.0.0.1 localhost uwu" > /etc/hosts
 
 adduser -D -s /bin/ash uwu
 echo "@USERCREDENTIALS@" | chpasswd
