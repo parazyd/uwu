@@ -51,12 +51,9 @@ $(IMAGE): $(BINS) $(BOOT_BINS) $(ALPINE_BINS) alpinechroot
 		sudo cpio -oa --reproducible --format=newc | xz -v - > ../$@)
 
 clean:
-	rm -rf $(BINS) $(BOOT_BINS) qemu-wrapper.c
+	sudo rm -rf $(BINS) $(BOOT_BINS) qemu-wrapper.c $(IMAGE) alpinechroot
 
 distclean: clean
-	rm -rf $(KERNEL_BINS) $(ALPINE_BINS) $(IMAGE)
+	rm -rf $(KERNEL_BINS) $(ALPINE_BINS)
 
-mrproper: distclean
-	sudo rm -rf alpinechroot
-
-.PHONY: all clean image
+.PHONY: all image clean distclean
