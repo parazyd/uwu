@@ -17,7 +17,7 @@ $(ALPINE_SIG):
 $(ALPINE_SHA):
 	wget -c https://nl.alpinelinux.org/alpine/v$(ALPINE_MAJ)/releases/armhf/$(ALPINE_SHA)
 
-alpinechroot: $(ALPINE_BINS)
+ch: $(ALPINE_BINS)
 	sha256sum -c $(ALPINE_SHA)
 	gpg --no-default-keyring --keyring=./verification_keyring.gpg \
 		--verify $(ALPINE_SIG)
