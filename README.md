@@ -16,7 +16,30 @@ Table of Contents
 Concept
 -------
 
-TODO
+uwu is designed as a Bitcoin hardware wallet for people who are
+comfortable with the command line. There are no methods to handhold you
+with lousy apps and interfaces, instead, everything is available to the
+user and you can utilize the full power of the command line to work with
+your wallet.
+
+Conceptually, uwu is supposed to run securely on a Raspberry Pi Zero and
+provide a serial console by utilizing Linux's USB gadget subsystem. Upon
+connecting your uwu device to your computer (or maybe another device
+like a mobile phone), uwu will appear as a serial console you can
+connect to and issue commands.
+
+uwu's kernel is a minimal build of mainline Linux, with no loadable
+module support. Everything that is necessary is compiled in, so there's
+no filesystem latency to load modules.
+
+In the userspace, uwu's backend is
+[Electrum](https://github.com/spesmilo/electrum). It runs as a daemon in
+offline mode and the user can interface with it by using the serial
+console. This means a single uwu device can have as many wallets and as
+many users(!) as you want.
+
+As further development happens, this concept will evolve, and this
+document will contain practical usage examples of uwu. Stay tuned!
 
 
 Building uwu
