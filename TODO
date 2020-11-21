@@ -1,6 +1,16 @@
-* cryptsetup
-* squashfs + overlayfs
-* initramfs ^
-* electrum initscript
-* framebuffer (display)
+General functionality:
+* initramfs + cryptsetup + squashfs + overlayfs
+* ^ remove ext fs from kernel defconfig when the above are implemented
+
+Userspace:
+* electrum autostart
+
+Display:
+* framebuffer on hdmi/spi
+
+Security:
 * boot verification/signature
+
+Misc:
+* photos/videos of setup and usage
+* clean up more unnecessary entries from kernel defconfig
