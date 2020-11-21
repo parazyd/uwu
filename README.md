@@ -4,6 +4,8 @@ uwu
 uwu is a build system and the software for the uwu Bitcoin hardware
 wallet.
 
+![uwu](uwu.png)
+
 Table of Contents
 =================
 
