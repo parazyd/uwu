@@ -1,0 +1,43 @@
+#!/bin/sh
+# Copyright (c) 2020 Ivan J. <parazyd@dyne.org>
+# This file is part of uwu.
+# See LICENSE file for copyright and license details.
+set -e
+
+cat <<EOF > /etc/apk/repositories
+https://nl.alpinelinux.org/alpine/edge/main
+https://nl.alpinelinux.org/alpine/edge/community
+https://nl.alpinelinux.org/alpine/edge/testing
+EOF
+
+cat <<EOF > /etc/resolv.conf
+nameserver 8.8.8.8
+EOF
+
+apk update
+apk upgrade
+apk add rng-tools electrum openrc alpine-base
+
+echo "uwu" > /etc/hostname
+
+adduser -D -s /bin/ash uwu
+echo "@USERCREDENTIALS@" | chpasswd
+echo "@ROOTCREDENTIALS@" | chpasswd
+
+sed -e 's/#rc_parallel="NO"/rc_parallel="YES"/' -i /etc/rc.conf
+
+cat <<EOF >> /etc/inittab
+ttyGS0::respawn:/sbin/getty -L ttyGS0 115200 vt100
+EOF
+
+echo "ttyGS0" >> /etc/securetty
+
+boot_initscripts="rngd syslog urandom klogd hostname"
+for i in $boot_initscripts; do
+	rc-update add $i boot
+done
+
+#default_initscripts="electrum-daemon"
+#for i in $default_initscripts; do
+#	rc-update add $i default
+#done
