@@ -39,18 +39,16 @@ $(IMAGE): $(BINS) $(BOOT_BINS) $(ALPINE_BINS) ch
 	chmod 755 ./ch/qemu-wrapper
 	chmod 755 ./ch/install.sh
 	sudo mount --types proc /proc ./ch/proc
-	sudo mount --rbind /sys ./ch/sys
-	sudo mount --make-rslave ./ch/sys
-	sudo mount --rbind /dev ./ch/dev
-	sudo mount --make-rslave ./ch/dev
-	sudo chroot ./ch /install.sh || sudo umount -R ./ch/dev ./ch/sys ./ch/proc
-	sudo umount -R ./ch/dev ./ch/sys ./ch/proc
-	sudo rm -f ./ch/install.sh \
-		./ch/qemu-wrapper ./ch/$(QEMU_ARM)
+	sudo mount --rbind /sys ./ch/sys  || sudo umount -R ./ch/proc
+	sudo mount --make-rslave ./ch/sys || sudo umount -R ./ch/proc ./ch/sys
+	sudo mount --rbind /dev ./ch/dev  || sudo umount -R ./ch/proc ./ch/sys
+	sudo mount --make-rslave ./ch/dev || sudo umount -R ./ch/proc ./ch/sys ./ch/dev
+	sudo chroot ./ch /install.sh      || sudo umount -R ./ch/proc ./ch/sys ./ch/dev
+	sudo umount -R ./ch/proc ./ch/sys ./ch/dev
+	sudo rm -f ./ch/install.sh ./ch/qemu-wrapper ./ch/$(QEMU_ARM)
 	sudo mkdir -p ./ch/boot
 	sudo cp -f rpi-boot/* ./ch/boot
-	( cd ch && sudo find . | \
-		sudo cpio -oa --reproducible --format=newc > ../$@)
+	( cd ch && sudo find . | sudo cpio -oa --reproducible --format=newc > ../$@)
 
 clean:
 	sudo rm -rf $(BINS) $(BOOT_BINS) qemu-wrapper.c $(IMAGE) ch
