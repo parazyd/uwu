@@ -3,7 +3,7 @@
 # See LICENSE file for copyright and license details.
 
 VERSION = 0.1
-IMAGE = uwu-$(VERSION).cpio.gz
+IMAGE = uwu-$(VERSION).cpio
 
 # System path to qemu-arm binary used to emulate ARM ELFs in the chroot
 QEMU_ARM = /usr/bin/qemu-arm

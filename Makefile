@@ -7,7 +7,7 @@
 include config.mk
 
 BINS = qemu-wrapper install-chroot.sh
-BOOT_BINS = rpi-boot/zImage rpi-boot/bcm2835-rpi-zero.dtb
+BOOT_BINS = rpi-boot/Image rpi-boot/bcm2835-rpi-zero.dtb
 
 all: $(BINS) $(BOOT_BINS)
 
@@ -27,8 +27,8 @@ install-chroot.sh: install-chroot.sh.in
 		-e 's,@ROOTCREDENTIALS@,$(ROOTCREDENTIALS),g' \
 		< $@.in > $@
 
-rpi-boot/zImage: $(KERNEL_BINS)
-	cp -f linux-5.8.18/arch/arm/boot/zImage $@
+rpi-boot/Image: $(KERNEL_BINS)
+	cp -f linux-5.8.18/arch/arm/boot/Image $@
 
 rpi-boot/bcm2835-rpi-zero.dtb: $(KERNEL_BINS)
 	cp -f linux-5.8.18/arch/arm/boot/dts/bcm2835-rpi-zero.dtb $@
@@ -38,9 +38,11 @@ $(IMAGE): $(BINS) $(BOOT_BINS) $(ALPINE_BINS) alpinechroot
 	sudo cp -f $(QEMU_ARM) ./alpinechroot/$(QEMU_ARM)
 	chmod 755 ./alpinechroot/qemu-wrapper
 	chmod 755 ./alpinechroot/install-chroot.sh
-	sudo mount --rbind /dev ./alpinechroot/dev
+	sudo mount --types proc /proc ./alpinechroot/proc
 	sudo mount --rbind /sys ./alpinechroot/sys
-	sudo mount -t proc /proc ./alpinechroot/proc
+	sudo mount --make-rslave ./alpinechroot/sys
+	sudo mount --rbind /dev ./alpinechroot/dev
+	sudo mount --make-rslave ./alpinechroot/dev
 	sudo chroot ./alpinechroot /install-chroot.sh
 	sudo umount -R ./alpinechroot/dev ./alpinechroot/sys ./alpinechroot/proc
 	sudo rm -f ./alpinechroot/install-chroot.sh \
@@ -48,7 +50,7 @@ $(IMAGE): $(BINS) $(BOOT_BINS) $(ALPINE_BINS) alpinechroot
 	sudo mkdir -p ./alpinechroot/boot
 	sudo cp -f rpi-boot/* ./alpinechroot/boot
 	( cd alpinechroot && sudo find . | \
-		sudo cpio -oa --reproducible --format=newc | xz -v - > ../$@)
+		sudo cpio -oa --reproducible --format=newc > ../$@)
 
 clean:
 	sudo rm -rf $(BINS) $(BOOT_BINS) qemu-wrapper.c $(IMAGE) alpinechroot

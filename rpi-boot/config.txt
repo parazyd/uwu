@@ -1,4 +1,4 @@
-kernel=zImage
+kernel=Image
 device_tree=bcm-2835-rpi-zero.dtb
 #avoid_warnings=2
 gpu_mem=16
