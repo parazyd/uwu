@@ -124,6 +124,11 @@ $ make -j$(nproc) image
 Some commands need `sudo` permissions, so be sure the user you're
 building with is able to use sudo. **Do not build as root!**
 
+**Sidenote:** If the build seems to be hanging, it might be waiting for
+you to input a sudo password. Try inputting it and pressing `Enter` to
+continue.  Otherwise, you may want to set up a `NOPASSWD` entry in
+sudoers, or something similar to prolong the timeout.
+
 This will probably take a little bit. When this is issued, the build
 system will start downloading the necessary source code and binaries. It
 will be compiling the Linux kernel, and setting up and configuring an
