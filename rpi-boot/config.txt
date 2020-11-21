@@ -1,9 +1,21 @@
+# Path to kernel binary
 kernel=Image
+
+# Path to device tree
 device_tree=bcm-2835-rpi-zero.dtb
-#avoid_warnings=2
-gpu_mem=16
+
+# Initramfs and loadaddr
 #initramfs initramfs.gz followkernel
+
+# Misc
+#avoid_warnings=2
+
+# Wishful boot speedups
 disable_splash=1
+#boot_delay=0
+gpu_mem=16
+#start_file=start_cd.elf
+#fixup_file=fixup_cd.elf
 
 # There are two framebuffers when an SPI display is attached:
 #
