@@ -6,6 +6,9 @@ wallet.
 
 ![uwu](uwu.png)
 
+You can donate BTC to support uwu development:
+[1Ai71EmjbVBu1QjwKeVEWSG2S1np6VtGEb](bitcoin:1Ai71EmjbVBu1QjwKeVEWSG2S1np6VtGEb)
+
 Table of Contents
 =================
 
