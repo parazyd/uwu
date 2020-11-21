@@ -24,7 +24,7 @@ $(KERNEL_SRC): $(KERNEL_TAR) $(KERNEL_SIG)
 		--verify $(KERNEL_SIG)
 	tar xf $(KERNEL_SRC).tar
 ifneq ($(KERNEL_PATCH),)
-	( cd $(KERNEL_SRC) && patch -p1 < $(KERNEL_PATCH) )
+	( cd $(KERNEL_SRC) && for i in $(KERNEL_PATCH); do patch -p1 < $$i || exit 1 ; done )
 endif
 
 $(KERNEL_CFG): $(KERNEL_SRC)
