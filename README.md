@@ -7,10 +7,11 @@ wallet.
 Table of Contents
 =================
 
-    * [Concept](#concept)
-    * [Building uwu](#building-uwu)
-        * [Environment setup](#environment-setup)
-        * [Compiling](#compiling)
+   * [uwu](#uwu)
+      * [Concept](#concept)
+      * [Building uwu](#building-uwu)
+         * [Environment setup](#environment-setup)
+         * [Compiling](#compiling)
 
 Concept
 -------
@@ -78,8 +79,11 @@ compiling uwu!
 To compile uwu and get the resulting cpio archive, we can issue
 
 ```
-make -j$(nproc) image
+$ make -j$(nproc) image
 ```
+
+Some commands need sudo permissions, so be sure the user you're building
+with is able to use sudo. Do not build as root!
 
 This will probably take a little bit. When this is issued, the build
 system will start downloading the necessary source code and binaries. It
