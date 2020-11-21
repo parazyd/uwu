@@ -59,6 +59,8 @@ The following sections will explain how to set up the build environment
 and will show the necessary configurations. Personally, I have this set
 up on Gentoo, so the steps will mostly reflect Gentoo environments, but
 it shouldn't be a problem to adapt for any other Linux distribution.
+Perhaps it's useful to also check the travisfile in this repository for
+reference.
 
 ### Environment setup
 
