@@ -11,6 +11,7 @@ You can donate BTC to support uwu development:
 
 [![Build Status](https://travis-ci.org/parazyd/uwu.svg?branch=master)](https://travis-ci.org/parazyd/uwu)
 
+
 Table of Contents
 =================
 
@@ -19,6 +20,11 @@ Table of Contents
       * [Building uwu](#building-uwu)
          * [Environment setup](#environment-setup)
          * [Compiling](#compiling)
+      * [Hardware](#hardware)
+         * [Preparation](#preparation)
+      * [Using uwu](#using-uwu)
+      * [License and copyright](#license-and-copyright)
+
 
 Concept
 -------
@@ -59,8 +65,9 @@ The following sections will explain how to set up the build environment
 and will show the necessary configurations. Personally, I have this set
 up on Gentoo, so the steps will mostly reflect Gentoo environments, but
 it shouldn't be a problem to adapt for any other Linux distribution.
-Perhaps it's useful to also check the travisfile in this repository for
-reference.
+Perhaps it's useful to also check the
+[travisfile](https://github.com/parazyd/uwu/blob/master/.travis.yml) in
+this repository for reference.
 
 ### Environment setup
 
@@ -73,9 +80,9 @@ $ git clone https://github.com/parazyd/uwu
 After we have it, we can start configuring things. The entire
 configuration is done in `config.mk`. We simply need to insert a valid
 path to a static `qemu-arm` binary that can be used in the ARM chroot,
-and a valid (cross)compiler prefix. The Raspberry Pi Zero needs an armv6
-architecture compiler. The rest of the variables will be updated as new
-software versions are released.
+and a valid (cross)compiler prefix. The Raspberry Pi Zero needs an
+`armv6` architecture compiler. The rest of the variables will be updated
+as new software versions are released.
 
 Further on, we need to setup `binfmt_misc`. Your system's kernel config
 should contain `CONFIG_BINFMT_MISC=m` or `CONFIG_BINFMT_MISC=y`.
@@ -114,8 +121,8 @@ To compile uwu and get the resulting cpio archive, we can issue
 $ make -j$(nproc) image
 ```
 
-Some commands need sudo permissions, so be sure the user you're building
-with is able to use sudo. Do not build as root!
+Some commands need `sudo` permissions, so be sure the user you're
+building with is able to use sudo. **Do not build as root!**
 
 This will probably take a little bit. When this is issued, the build
 system will start downloading the necessary source code and binaries. It
@@ -123,3 +130,32 @@ will be compiling the Linux kernel, and setting up and configuring an
 Alpine Linux chroot. Once done, the chroot will be packed and compressed
 into a cpio archive which can then be extracted on a microSD card we can
 use with our Raspberry Pi Zero.
+
+
+Hardware
+--------
+
+* [Raspberry Pi Zero](https://www.raspberrypi.org/products/raspberry-pi-zero/)
+* [SPI display](https://www.waveshare.com/product/2.13inch-e-paper-hat.htm)
+* Class 10 microSD card (256M or more)
+* Micro USB cable
+
+
+### Preparation
+
+TODO
+
+
+Using uwu
+---------
+
+TODO
+
+
+License and copyright
+---------------------
+
+* uwu and its components are licensed with
+  [GPL-3](https://www.gnu.org/licenses/gpl-3.0.txt).
+* Raspberry Pi firmware is licensed from Broadcom Corporation and
+  Raspberry Pi Ltd.
