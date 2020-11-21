@@ -118,6 +118,7 @@ compiling uwu!
 To compile uwu and get the resulting cpio archive, we can issue
 
 ```
+$ make -j$(nproc)
 $ make -j$(nproc) image
 ```
 
