@@ -16,7 +16,7 @@ apk update
 apk upgrade
 apk add rng-tools electrum openrc alpine-base
 
-rm -f /etc/resolv.conf
+#rm -f /etc/resolv.conf
 
 echo "uwu" > /etc/hostname
 echo "127.0.0.1 localhost uwu" > /etc/hosts
