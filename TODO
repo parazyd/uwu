@@ -1,0 +1,6 @@
+* cryptsetup
+* squashfs + overlayfs
+* initramfs ^
+* electrum initscript
+* framebuffer (display)
+* boot verification/signature
