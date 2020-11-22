@@ -143,7 +143,6 @@ Hardware
 --------
 
 * [Raspberry Pi Zero](https://www.raspberrypi.org/products/raspberry-pi-zero/)
-* [SPI display](https://www.waveshare.com/product/2.13inch-e-paper-hat.htm)
 * Class 10 microSD card (256M or more)
 * Micro USB cable
 
