@@ -10,7 +10,7 @@ BINS = qemu-wrapper install.sh
 BOOT_BINS = rpi-boot/upstream/kernel.img rpi-boot/upstream/bcm2835-rpi-zero.dtb
 INIT_BINS = initramfs/bin/sh
 
-all: $(BINS) $(BOOT_BINS)
+all: $(BINS) $(BOOT_BINS) $(INIT_BINS)
 
 image: all $(IMAGE)
 
