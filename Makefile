@@ -8,7 +8,7 @@ include config.mk
 
 BINS = qemu-wrapper install.sh
 BOOT_BINS = rpi-boot/upstream/kernel.img rpi-boot/upstream/bcm2835-rpi-zero.dtb
-INIT_BINS = initramfs/bin/sh
+INIT_BINS = initramfs/bin/sh initramfs/bin/basename initramfs/bin/mount
 
 all: $(BINS) $(BOOT_BINS) $(INIT_BINS)
 
@@ -17,6 +17,8 @@ image: all $(IMAGE)
 include alpine.mk
 include dash.mk
 include kernel.mk
+include sbase.mk
+include ubase.mk
 
 qemu-wrapper.c:
 	sed -e 's,@QEMU_ARM@,$(QEMU_ARM),g' < $@.in > $@
@@ -37,6 +39,12 @@ rpi-boot/upstream/bcm2835-rpi-zero.dtb: $(KERNEL_BINS)
 
 initramfs/bin/sh: $(DASH_BINS)
 	cp -f $(DASH_SRC)/src/dash $@
+
+initramfs/bin/basename: $(SBASE_BINS)
+	cp -f $(SBASE_B) initramfs/bin
+
+initramfs/bin/mount: $(UBASE_BINS)
+	cp -f $(UBASE_B) initramfs/bin
 
 $(IMAGE): $(BINS) $(BOOT_BINS) $(ALPINE_BINS) $(INIT_BINS) ch
 	cp -f $(BINS) ./ch
@@ -63,6 +71,6 @@ clean:
 	sudo rm -rf $(BINS) $(BOOT_BINS) $(INIT_BINS) qemu-wrapper.c $(IMAGE) ch
 
 distclean: clean
-	rm -rf $(KERNEL_BINS) $(ALPINE_BINS) $(DASH_BINS)
+	rm -rf $(KERNEL_BINS) $(ALPINE_BINS) $(DASH_BINS) $(SBASE_BINS) $(UBASE_BINS)
 
 .PHONY: all image clean distclean

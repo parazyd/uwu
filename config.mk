@@ -35,3 +35,9 @@ ALPINE_VER = 3.12.1
 # Dash shell version
 DASH_SRC = dash-0.5.11.2
 DASH_SUM = 24b0bfea976df722bc360e782b683c0867f0513d2922fa3c002d8d47a20605ee
+
+# ubase
+UBASE_SRC = ubase
+
+# sbase
+SBASE_SRC = sbase
