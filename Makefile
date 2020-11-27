@@ -68,9 +68,11 @@ endif
 	( cd ch && sudo find . | sudo cpio -oa --reproducible --format=newc > ../$@)
 
 clean:
-	sudo rm -rf $(BINS) $(BOOT_BINS) $(INIT_BINS) qemu-wrapper.c $(IMAGE) ch
+	sudo rm -rf $(BINS) $(BOOT_BINS) $(INIT_BINS) initramfs/bin/* \
+		qemu-wrapper.c $(IMAGE) ch
 
 distclean: clean
-	rm -rf $(KERNEL_BINS) $(ALPINE_BINS) $(DASH_BINS) $(SBASE_BINS) $(UBASE_BINS)
+	rm -rf $(KERNEL_BINS) $(KERNEL_TAR).xz $(ALPINE_BINS) \
+		$(DASH_BINS) $(SBASE_BINS) $(UBASE_BINS)
 
 .PHONY: all image clean distclean
