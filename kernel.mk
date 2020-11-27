@@ -9,7 +9,7 @@ KERNEL_CFG = $(KERNEL_SRC)/config
 KERNEL_BINS = \
 	$(KERNEL_SRC) $(KERNEL_TAR) $(KERNEL_SIG) $(KERNEL_CFG) \
 	$(KERNEL_SRC)/arch/arm/boot/dts/bcm2835-rpi-zero.dtb \
-	$(KERNEL_SRC)/arch/arm/boot/Image
+	$(KERNEL_SRC)/arch/arm/boot/zImage
 
 
 $(KERNEL_TAR):
@@ -36,5 +36,5 @@ $(KERNEL_CFG): $(KERNEL_SRC)
 $(KERNEL_SRC)/arch/arm/boot/dts/bcm2835-rpi-zero.dtb: $(KERNEL_CFG)
 	$(MAKE) -C $(KERNEL_SRC) ARCH=arm CROSS_COMPILE=$(CROSS_COMPILE) bcm2835-rpi-zero.dtb
 
-$(KERNEL_SRC)/arch/arm/boot/Image: $(KERNEL_SRC)/arch/arm/boot/dts/bcm2835-rpi-zero.dtb
-	$(MAKE) -C $(KERNEL_SRC) ARCH=arm CROSS_COMPILE=$(CROSS_COMPILE) Image
+$(KERNEL_SRC)/arch/arm/boot/zImage: $(KERNEL_SRC)/arch/arm/boot/dts/bcm2835-rpi-zero.dtb
+	$(MAKE) -C $(KERNEL_SRC) ARCH=arm CROSS_COMPILE=$(CROSS_COMPILE) zImage

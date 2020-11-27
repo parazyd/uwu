@@ -7,7 +7,7 @@
 include config.mk
 
 BINS = qemu-wrapper install.sh
-BOOT_BINS = rpi-boot/Image rpi-boot/bcm2835-rpi-zero.dtb
+BOOT_BINS = rpi-boot/upstream/kernel.img rpi-boot/upstream/bcm2835-rpi-zero.dtb
 
 all: $(BINS) $(BOOT_BINS)
 
@@ -27,10 +27,10 @@ install.sh: install.sh.in
 		-e 's,@ROOTCREDENTIALS@,$(ROOTCREDENTIALS),g' \
 		< $@.in > $@
 
-rpi-boot/Image: $(KERNEL_BINS)
-	cp -f linux-5.8.18/arch/arm/boot/Image $@
+rpi-boot/upstream/kernel.img: $(KERNEL_BINS)
+	cp -f linux-5.8.18/arch/arm/boot/zImage $@
 
-rpi-boot/bcm2835-rpi-zero.dtb: $(KERNEL_BINS)
+rpi-boot/upstream/bcm2835-rpi-zero.dtb: $(KERNEL_BINS)
 	cp -f linux-5.8.18/arch/arm/boot/dts/bcm2835-rpi-zero.dtb $@
 
 $(IMAGE): $(BINS) $(BOOT_BINS) $(ALPINE_BINS) ch
@@ -47,7 +47,11 @@ $(IMAGE): $(BINS) $(BOOT_BINS) $(ALPINE_BINS) ch
 	sudo umount -R ./ch/proc ./ch/sys ./ch/dev
 	sudo rm -f ./ch/install.sh ./ch/qemu-wrapper ./ch/$(QEMU_ARM)
 	sudo mkdir -p ./ch/boot
-	sudo cp -f rpi-boot/* ./ch/boot
+	sudo cp -r rpi-boot/* ./ch/boot
+ifneq ($(DEBUG),)
+	sudo sed -e 's/BOOT_UART=0/BOOT_UART=1/' -i ./ch/boot/bootcode.bin
+	sudo sed -e 's/enable_uart=0/enable_uart=1/' -i ./ch/boot/config.txt
+endif
 	( cd ch && sudo find . | sudo cpio -oa --reproducible --format=newc > ../$@)
 
 clean:
