@@ -28,10 +28,10 @@ install.sh: install.sh.in
 		< $@.in > $@
 
 rpi-boot/upstream/kernel.img: $(KERNEL_BINS)
-	cp -f linux-5.8.18/arch/arm/boot/zImage $@
+	cp -f $(KERNEL_SRC)/arch/arm/boot/zImage $@
 
 rpi-boot/upstream/bcm2835-rpi-zero.dtb: $(KERNEL_BINS)
-	cp -f linux-5.8.18/arch/arm/boot/dts/bcm2835-rpi-zero.dtb $@
+	cp -f $(KERNEL_SRC)/arch/arm/boot/dts/bcm2835-rpi-zero.dtb $@
 
 $(IMAGE): $(BINS) $(BOOT_BINS) $(ALPINE_BINS) ch
 	cp -f $(BINS) ./ch
