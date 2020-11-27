@@ -1,38 +1,7 @@
-# Path to kernel binary
-kernel=Image
-
-# Path to device tree
-device_tree=bcm-2835-rpi-zero.dtb
-
-# Initramfs and loadaddr
-#initramfs initramfs.gz followkernel
-
-# Misc
-#avoid_warnings=2
-
-# Wishful boot speedups
+[all]
+enable_uart=1
+upstream_kernel=1
+avoid_warnings=2
+#gpu_mem=16
 disable_splash=1
-#boot_delay=0
-gpu_mem=16
-#start_file=start_cd.elf
-#fixup_file=fixup_cd.elf
-
-# There are two framebuffers when an SPI display is attached:
-#
-# - /dev/fb0 - represents the HDMI output. This output is hardware-accelerated
-#              and therefore should be the target of GUIs
-# - /dev/fb1 - represents the SPI/LCD output
-#
-# The following settings enable a custom mode (mode 87) that sets the HDMI
-# output to the same resolution as the LCD. This is useful so an application
-# can target the hardware-accelerated output, and the raspi2fb tool can be
-# used to mirror the output to the LCD.
-#
-# The HDMI group forces DMT output even on the HDMI output. DMT is the
-# standard for monitors, in contrast to CEA, the standard for TVs.
-
-framebuffer_width=250
-framebuffer_height=122
-hdmi_cvt 250 122 60 1 0 0 0
-hdmi_mode=87
-hdmi_group=2
+boot_delay=0
