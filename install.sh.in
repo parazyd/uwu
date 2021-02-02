@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2020 Ivan J. <parazyd@dyne.org>
+# Copyright (c) 2020-2021 Ivan J. <parazyd@dyne.org>
 # This file is part of uwu.
 # See LICENSE file for copyright and license details.
 set -e
@@ -43,6 +43,7 @@ ttyGS0::respawn:/sbin/getty -L ttyGS0 115200 vt100
 EOF
 
 echo "ttyGS0" >> /etc/securetty
+echo "ttyAMA0" >> /etc/securetty
 
 boot_initscripts="rngd syslog urandom klogd hostname"
 for i in $boot_initscripts; do
