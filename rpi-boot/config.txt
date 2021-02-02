@@ -1,6 +1,7 @@
 [all]
 enable_uart=1
 upstream_kernel=1
+initramfs initramfs.cpio followkernel
 avoid_warnings=2
 gpu_mem=16
 disable_splash=1
