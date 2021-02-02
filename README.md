@@ -103,16 +103,8 @@ To compile uwu and get the resulting cpio archive, we can issue
 
 ```
 $ make -j$(nproc)
-$ make -j$(nproc) image
+$ sudo make -j$(nproc) image
 ```
-
-Some commands need `sudo` permissions, so be sure the user you're
-building with is able to use sudo. **Do not build as root!**
-
-**Sidenote:** If the build seems to be hanging, it might be waiting for
-you to input a sudo password. Try inputting it and pressing `Enter` to
-continue.  Otherwise, you may want to set up a `NOPASSWD` entry in
-sudoers, or something similar to prolong the timeout.
 
 This process can take 20 minutes of crunching, depending on your
 hardware. When this is issued, the build system will start downloading

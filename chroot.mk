@@ -12,7 +12,7 @@ chroot/bin/busybox: $(ALPINE_TAR) $(ALPINE_SIG)
 	mkdir -p chroot
 	( cd chroot && tar xf ../$(ALPINE_TAR) )
 
-chroot/bin/electrum: chroot/bin/busybox qemu-wrapper
+chroot/usr/bin/electrum: chroot/bin/busybox qemu-wrapper
 	./devprocsys.sh mount chroot
 	cp install.sh chroot/install.sh
 	cp qemu-wrapper chroot

@@ -22,8 +22,8 @@ include busybox.mk
 include kernel.mk
 
 clean:
-	rm -rf $(BINS) $(BOOT_BINS) $(INIT_BINS) filesystem.squashfs \
-		uwu-$(VERSION).img qemu-wrapper.c
+	rm -rf $(BINS) $(BOOT_BINS) $(INIT_BINS) rpi-boot/filesystem.squashfs \
+		$(IMAGE) qemu-wrapper.c
 
 distclean: clean
 	rm -rf $(ALPINE_BINS) $(BUSYBOX_BINS) $(CHROOT_BINS) $(KERNEL_BINS)
@@ -44,7 +44,7 @@ initramfs/bin/busybox: $(BUSYBOX_SRC)/busybox
 	mkdir -p initramfs/bin
 	cp $(BUSYBOX_SRC)/busybox $@
 
-filesystem.squashfs: chroot/usr/bin/electrum
+rpi-boot/filesystem.squashfs: chroot/usr/bin/electrum
 	mksquashfs chroot $@ -comp xz -noappend
 
 rpi-boot/upstream/initramfs.cpio: initramfs/bin/busybox initramfs/init
@@ -56,4 +56,9 @@ rpi-boot/upstream/kernel.img: $(KERNEL_SRC)/arch/arm/boot/zImage
 rpi-boot/upstream/bcm2835-rpi-zero.dtb: $(KERNEL_SRC)/arch/arm/boot/dts/bcm2835-rpi-zero.dtb
 	cp $(KERNEL_SRC)/arch/arm/boot/dts/bcm2835-rpi-zero.dtb $@
 
-.PHONY: all clean distclean
+image: $(IMAGE)
+
+$(IMAGE): rpi-boot/filesystem.squashfs $(BOOT_BINS)
+	( cd rpi-boot && find -print0 | cpio --null -oV --format=newc > ../$@)
+
+.PHONY: all clean distclean image
