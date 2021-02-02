@@ -11,7 +11,6 @@ IMAGE = uwu-$(VERSION).cpio
 QEMU_ARM = /usr/bin/qemu-arm
 
 # System credentials
-USERCREDENTIALS = uwu:uwu
 ROOTCREDENTIALS = root:toor
 
 # Crosscompiler prefix for compiling Linux and Busybox
@@ -26,3 +25,6 @@ ALPINE_VER = $(ALPINE_MAJ).1
 
 # Busybox version
 BUSYBOX_VER = 1.33.0
+
+# Electrum version
+ELECTRUM_VER = 4.0.9

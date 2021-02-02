@@ -17,16 +17,18 @@ INIT_BINS = initramfs/bin
 all: $(BINS) $(BOOT_BINS)
 
 include alpine.mk
-include chroot.mk
 include busybox.mk
+include electrum.mk
 include kernel.mk
+include chroot.mk
 
 clean:
 	rm -rf $(BINS) $(BOOT_BINS) $(INIT_BINS) rpi-boot/filesystem.squashfs \
 		$(IMAGE) qemu-wrapper.c
 
 distclean: clean
-	rm -rf $(ALPINE_BINS) $(BUSYBOX_BINS) $(CHROOT_BINS) $(KERNEL_BINS)
+	rm -rf $(ALPINE_BINS) $(BUSYBOX_BINS) $(CHROOT_BINS) $(KERNEL_BINS) \
+		$(ELECTRUM_BINS)
 
 qemu-wrapper.c: qemu-wrapper.c.in
 	sed -e 's,@QEMU_ARM@,$(QEMU_ARM),g' < $@.in > $@
@@ -35,16 +37,13 @@ qemu-wrapper: qemu-wrapper.c
 	$(CC) -static $@.c -O3 -s -o $@
 
 install.sh: install.sh.in
-	sed \
-		-e 's,@USERCREDENTIALS@,$(USERCREDENTIALS),g' \
-		-e 's,@ROOTCREDENTIALS@,$(ROOTCREDENTIALS),g' \
-		< $@.in > $@
+	sed -e 's,@ROOTCREDENTIALS@,$(ROOTCREDENTIALS),g' < $@.in > $@
 
 initramfs/bin/busybox: $(BUSYBOX_SRC)/busybox
 	mkdir -p initramfs/bin
 	cp $(BUSYBOX_SRC)/busybox $@
 
-rpi-boot/filesystem.squashfs: chroot/usr/bin/electrum
+rpi-boot/filesystem.squashfs: chroot/root/electrum
 	mksquashfs chroot $@ -comp xz -Xbcj arm -noappend
 
 rpi-boot/upstream/initramfs.cpio: initramfs/bin/busybox initramfs/init

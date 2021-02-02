@@ -17,15 +17,13 @@ echo "nameserver 8.8.8.8" > /etc/resolv.conf
 
 apk update
 apk upgrade
-apk add rng-tools electrum openrc alpine-base
+apk add rng-tools openrc libsecp256k1 py3-cryptography alpine-base
 
 #rm -f /etc/resolv.conf
 
 echo "uwu" > /etc/hostname
 echo "127.0.0.1 localhost uwu" > /etc/hosts
 
-adduser -D -s /bin/ash uwu
-echo "@USERCREDENTIALS@" | chpasswd
 echo "@ROOTCREDENTIALS@" | chpasswd
 
 sed -e 's/^#rc_parallel=.*/rc_parallel="YES"/' \
@@ -38,22 +36,20 @@ cat <<EOF > /etc/inittab
 ::sysinit:/sbin/openrc sysinit
 ::sysinit:/sbin/openrc boot
 ::wait:/sbin/openrc default
-ttyGS0::respawn:/sbin/getty -L ttyGS0 115200 vt100
-ttyAMA0::respawn:/sbin/getty -L ttyAMA0 115200 vt100
 ::shutdown:/sbin/openrc shutdown
+ttyGS0::respawn:/sbin/getty -L ttyGS0 115200 vt100
 EOF
 
 echo "ttyGS0" >> /etc/securetty
-echo "ttyAMA0" >> /etc/securetty
 
 boot_initscripts="rngd urandom hostname sysfs devfs sysctl"
 default_initscripts="local"
 for i in $boot_initscripts; do
-	rc-update add $i boot
+	rc-update add "$i" boot
 done
 
 for i in $default_initscripts; do
-	rc-update add $i default
+	rc-update add "$i" default
 done
 
 # Final cleanup
