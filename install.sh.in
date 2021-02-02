@@ -46,9 +46,14 @@ EOF
 echo "ttyGS0" >> /etc/securetty
 echo "ttyAMA0" >> /etc/securetty
 
-boot_initscripts="rngd syslog urandom klogd hostname"
+boot_initscripts="rngd urandom hostname sysfs devfs sysctl"
+default_initscripts="local"
 for i in $boot_initscripts; do
 	rc-update add $i boot
+done
+
+for i in $default_initscripts; do
+	rc-update add $i default
 done
 
 # Final cleanup
