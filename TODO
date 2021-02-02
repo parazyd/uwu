@@ -8,3 +8,4 @@ Security:
 Misc:
 * photos/videos of setup and usage
 * clean up more unnecessary entries from kernel defconfig
+* clean up more unnecessary stuff from busybox
