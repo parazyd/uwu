@@ -17,5 +17,9 @@ cp /boot/filesystem.squashfs /tmp
 umount /boot
 
 mount -t squashfs /tmp/filesystem.squashfs /mnt
+mount -t tmpfs -o size=50M none /mnt/home/uwu/.electrum
+
+mount --move /dev /mnt/dev
+umount /proc /sys
 
 exec /bin/sh
