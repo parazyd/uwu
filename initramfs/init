@@ -3,7 +3,7 @@ set -x
 
 /bin/busybox --install -s /bin
 
-mkdir -p /dev /boot /mnt /proc /sys /etc /tmp
+mkdir -p /dev /boot /mnt/ro /mnt/rw /proc /sys /etc /tmp
 
 touch /etc/fstab
 
@@ -16,10 +16,14 @@ mount /dev/mmcblk0p1 /boot
 cp /boot/filesystem.squashfs /tmp
 umount /boot
 
-mount -t squashfs /tmp/filesystem.squashfs /mnt
-mount -t tmpfs -o size=50M none /mnt/home/uwu/.electrum
+mount -t squashfs /tmp/filesystem.squashfs /mnt/ro
+mount -t tmpfs size=256M none /mnt/rw
+mkdir /mnt/rw/upper /mnt/rw/work
+mount -t overlay \
+	-o lowerdir=/mnt/ro,upperdir=/mnt/rw/upper,workdir=/mnt/rw/work \
+	overlay /mnt/overlay
 
-mount --move /dev /mnt/dev
+mount --move /dev /mnt/overlay dev
 umount /proc /sys
 
 exec /bin/sh
