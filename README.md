@@ -87,27 +87,13 @@ as new software versions are released.
 Further on, we need to setup `binfmt_misc`. Your system's kernel config
 should contain `CONFIG_BINFMT_MISC=m` or `CONFIG_BINFMT_MISC=y`.
 
-Mount the `binfmt_misc` handler if it's not already:
-
-```
-# [ -d /proc/sys/fs/binfmt_misc ] || modprobe binfmt_misc
-# [ -f /proc/sys/fs/binfmt_misc/register ] || mount binfmt_misc -t binfmt_misc /proc/sys/fs/binfmt_misc
-```
-
-After we have this, we need to register our format with procfs:
-
-```
-# echo ':arm:M::\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x28\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff:/qemu-wrapper:' > /proc/sys/fs/binfmt_misc/register
-```
-
-Once done, usually you should have an initscript to (re)start the binfmt
-service.
-
 On Gentoo/OpenRC:
 
 ```
 # /etc/init.d/qemu-binfmt start
 ```
+
+On Devuan/Debian it should be automagic.
 
 If all went well, we're done with our build environment and we can start
 compiling uwu!
