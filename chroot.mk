@@ -10,7 +10,7 @@ chroot/bin/busybox: $(ALPINE_TAR) $(ALPINE_SIG)
 	gpg --no-default-keyring --keyring=./verification_keyring.gpg \
 		--verify $(ALPINE_SIG)
 	mkdir -p chroot
-	( cd chroot && tar xf ../$(ALPINE_TAR) )
+	( cd chroot && tar xpf ../$(ALPINE_TAR) --xattrs )
 
 chroot/usr/bin/electrum: chroot/bin/busybox qemu-wrapper
 	./devprocsys.sh mount chroot
@@ -20,4 +20,6 @@ chroot/usr/bin/electrum: chroot/bin/busybox qemu-wrapper
 	chmod 755 chroot/install.sh chroot/qemu-wrapper
 	chroot chroot /install.sh || ( ./devprocsys.sh umount chroot ; exit 1 )
 	./devprocsys.sh umount chroot
+	mkdir -p chroot/home/uwu/.electrum
+	chown 1000:1000 chroot/home/uwu/.electrum
 	rm -f chroot/usr/bin/$(QEMU_ARM) chroot/qemu-wrapper chroot/install.sh

@@ -45,7 +45,7 @@ initramfs/bin/busybox: $(BUSYBOX_SRC)/busybox
 	cp $(BUSYBOX_SRC)/busybox $@
 
 rpi-boot/filesystem.squashfs: chroot/usr/bin/electrum
-	mksquashfs chroot $@ -comp xz -noappend
+	mksquashfs chroot $@ -comp xz -Xbcj arm -noappend
 
 rpi-boot/upstream/initramfs.cpio: initramfs/bin/busybox initramfs/init
 	( cd initramfs && find -print0 | cpio --null -oV --format=newc > ../$@ )
