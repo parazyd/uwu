@@ -7,9 +7,6 @@
 VERSION = 0.1
 IMAGE = uwu-$(VERSION).cpio
 
-# Uncomment to enable certain things useful for debugging
-DEBUG = 1
-
 # System path to qemu-arm binary used to emulate Arm ELFs in the chroot
 QEMU_ARM = /usr/bin/qemu-arm
 
