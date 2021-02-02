@@ -39,6 +39,7 @@ cat <<EOF > /etc/inittab
 ::sysinit:/sbin/openrc boot
 ::wait:/sbin/openrc default
 ttyGS0::respawn:/sbin/getty -L ttyGS0 115200 vt100
+ttyAMA0::respawn:/sbin/getty -L ttyAMA0 115200 vt100
 ::shutdown:/sbin/openrc shutdown
 EOF
 
