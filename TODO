@@ -1,9 +1,6 @@
-General functionality:
-* initramfs + cryptsetup + squashfs + overlayfs
-* ^ remove ext fs from kernel defconfig when the above are implemented
-
 Userspace:
 * electrum (daemon) autostart
+* wallet seeds
 
 Security:
 * boot verification/signature
@@ -11,7 +8,3 @@ Security:
 Misc:
 * photos/videos of setup and usage
 * clean up more unnecessary entries from kernel defconfig
-
-Display (low priority):
-* framebuffer on hdmi/spi
-* maybe write kernel fb driver for waveshare eink
