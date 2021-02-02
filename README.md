@@ -119,13 +119,31 @@ Hardware
 --------
 
 * [Raspberry Pi Zero](https://www.raspberrypi.org/products/raspberry-pi-zero/)
-* Class 10 microSD card (256M or more)
+* Class 10 microSD card (128M or more)
 * Micro USB cable
 
 
 ### Preparation
 
-TODO
+After you've built the image, you should copy it to your microSD card.
+Create a VFAT partition on your microSD card and format it:
+
+```
+# parted /dev/mmcblk0 --script -- mklabel msdos 
+# parted /dev/mmcblk0 --script -- mkpart primary fat32 2048s 100%
+# mkfs.vfat /dev/mmcblk0p1
+```
+
+Mount it and extract the cpio archive:
+
+```
+# mkdir mnt
+# mount /dev/mmcblk0p1 mnt
+# cd mnt && cpio -i < ../uwu-*.cpio && cd ..
+# umount mnt
+```
+
+With this, you've successfully installed uwu and you're ready to boot.
 
 
 Using uwu
