@@ -9,6 +9,8 @@ wallet.
 You can donate BTC to support uwu development:
 [1Ai71EmjbVBu1QjwKeVEWSG2S1np6VtGEb](bitcoin:1Ai71EmjbVBu1QjwKeVEWSG2S1np6VtGEb)
 
+Talk about uwu on **irc.oftc.net/#uwu**
+
 
 Table of Contents
 =================
