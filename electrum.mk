@@ -4,12 +4,6 @@
 # This file is part of uwu.
 # See LICENSE file for copyright and license details.
 
-ELECTRUM_SRC = Electrum-$(ELECTRUM_VER)
-ELECTRUM_TAR = $(ELECTRUM_SRC).tar.gz
-ELECTRUM_SIG = $(ELECTRUM_TAR).asc
-
-ELECTRUM_BINS = $(ELECTRUM_SRC) $(ELECTRUM_TAR) $(ELECTRUM_SIG)
-
 $(ELECTRUM_TAR) $(ELECTRUM_SIG):
 	wget -c https://download.electrum.org/$(ELECTRUM_VER)/$@
 

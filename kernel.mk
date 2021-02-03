@@ -4,12 +4,6 @@
 # This file is part of uwu.
 # See LICENSE file for copyright and license details.
 
-KERNEL_SRC = linux-$(KERNEL_VER)
-KERNEL_TAR = $(KERNEL_SRC).tar
-KERNEL_SIG = $(KERNEL_TAR).sign
-
-KERNEL_BINS = $(KERNEL_SRC) $(KERNEL_TAR) $(KERNEL_SIG)
-
 $(KERNEL_SIG):
 	wget -c https://cdn.kernel.org/pub/linux/kernel/v5.x/$@
 

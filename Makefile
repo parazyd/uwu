@@ -14,11 +14,11 @@ BOOT_BINS = \
 
 INIT_BINS = initramfs/bin
 
-all: $(BINS) $(BOOT_BINS)
+all: $(BINS) $(KERNEL_BINS) $(ALPINE_BINS) $(BUSYBOX_BINS) $(ELECTRUM_BINS) $(BOOT_BINS)
 
+include electrum.mk
 include alpine.mk
 include busybox.mk
-include electrum.mk
 include kernel.mk
 include chroot.mk
 
