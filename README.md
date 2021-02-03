@@ -30,26 +30,26 @@ Concept
 -------
 
 uwu is designed as a Bitcoin hardware wallet for people who are
-comfortable with the command line. There are no methods to handhold you
-with lousy apps and interfaces, instead, everything is available to the
-user and you can utilize the full power of the command line to work with
-your wallet.
+comfortable with the command line. There are no methods to handhold
+you with lousy apps and interfaces, instead, everything is available
+to the user and you can utilize the full power of the command line
+to work with your wallet.
 
-Conceptually, uwu is supposed to run securely on a Raspberry Pi Zero and
-provide a serial console by utilizing Linux's USB gadget subsystem. Upon
-connecting your uwu device to your computer (or maybe another device
-like a mobile phone), uwu will appear as a serial console you can
-connect to and issue commands.
+Conceptually, uwu is supposed to run securely on a Raspberry Pi
+Zero and provide a serial console by utilizing Linux's USB gadget
+subsystem. Upon connecting your uwu device to your computer (or maybe
+another device like a mobile phone), uwu will appear as a serial
+console you can connect to and issue commands.
 
 uwu's kernel is a minimal build of mainline Linux, with no loadable
-module support. Everything that is necessary is compiled in, so there's
-no filesystem latency to load modules.
+module support. Everything that is necessary is compiled in, so
+there's no filesystem latency to load modules.
 
 In the userspace, uwu's backend is
-[Electrum](https://github.com/spesmilo/electrum). It runs as a daemon in
-offline mode and the user can interface with it by using the serial
-console. This means a single uwu device can have as many wallets and as
-many users(!) as you want.
+[Electrum](https://github.com/spesmilo/electrum). It runs as a daemon
+in offline mode and the user can interface with it by using the serial
+console. This means a single uwu device can have as many wallets and
+as many users(!) as you want.
 
 As further development happens, this concept will evolve, and this
 document will contain practical usage examples of uwu. Stay tuned!
@@ -60,14 +60,8 @@ Building uwu
 
 This build system's goal is to create a cpio archive that can be
 extracted on a microSD card to be used on the Raspberry Pi Zero.
-
 The following sections will explain how to set up the build environment
-and will show the necessary configurations. Personally, I have this set
-up on Gentoo, so the steps will mostly reflect Gentoo environments, but
-it shouldn't be a problem to adapt for any other Linux distribution.
-Perhaps it's useful to also check the
-[travisfile](https://github.com/parazyd/uwu/blob/master/.travis.yml) in
-this repository for reference.
+and will show the necessary configurations.
 
 ### Environment setup
 
@@ -81,11 +75,11 @@ After we have it, we can start configuring things. The entire
 configuration is done in `config.mk`. We simply need to insert a valid
 path to a static `qemu-arm` binary that can be used in the ARM chroot,
 and a valid (cross)compiler prefix. The Raspberry Pi Zero needs an
-`armv6` architecture compiler. The rest of the variables will be updated
-as new software versions are released.
+`armv6` architecture compiler. The rest of the variables will be
+updated as new software versions are released.
 
-Further on, we need to setup `binfmt_misc`. Your system's kernel config
-should contain `CONFIG_BINFMT_MISC=m` or `CONFIG_BINFMT_MISC=y`.
+Further on, we need to setup `binfmt_misc`. Your system's kernel
+config should contain `CONFIG_BINFMT_MISC=m` or `CONFIG_BINFMT_MISC=y`.
 
 On Gentoo/OpenRC:
 
@@ -95,8 +89,8 @@ On Gentoo/OpenRC:
 
 On Devuan/Debian it should be automagic.
 
-If all went well, we're done with our build environment and we can start
-compiling uwu!
+If all went well, we're done with our build environment and we can
+start compiling uwu!
 
 
 ### Compiling
@@ -112,9 +106,9 @@ This process can take 20 minutes of crunching, depending on your
 hardware. When this is issued, the build system will start downloading
 the necessary source code and binaries. It will be compiling the Linux
 kernel, and setting up and configuring an Alpine Linux chroot. Once
-done, the chroot will be packed and compressed into a cpio archive which
-can then be extracted on a microSD card we can use with our Raspberry Pi
-Zero.
+done, the chroot will be packed and compressed into a cpio archive
+which can then be extracted on a microSD card we can use with our
+Raspberry Pi Zero.
 
 
 Hardware
